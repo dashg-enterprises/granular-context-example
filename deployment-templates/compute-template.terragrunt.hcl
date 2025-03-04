@@ -13,11 +13,15 @@ terraform {
   source = "git::https://github.com/${local.repo_path}.git//iac/compute?ref=main"
 }
 
+dependency "cloudscape" {
+  config_path = "../../../cloudscape"
+}
+
 dependency "dependencies" {
   config_path = "../dependencies"
 }
 
-dependency "sql-db" {
+dependency "sql_db" {
   config_path = "../sql-db"
 }
 
@@ -32,5 +36,18 @@ inputs = {
     id                 = dependency.cloudscape.outputs.vpc_id
     private_subnet_ids = dependency.cloudscape.outputs.private_subnet_ids
     public_subnet_ids  = dependency.cloudscape.outputs.public_subnet_ids
+  }
+  environment_variables = {
+    COMMAND_QUEUE_ARN = dependency.dependencies.command_queue_arn
+    DELAYED_COMMAND_QUEUE_ARN = dependency.dependencies.outputs.delayed_command_queue_arn
+    EVENT_LOG_TABLE_NAME = dependency.dependencies.outputs.event_log_table_name
+    SNAPSHOT_TABLE_NAME = dependency.dependencies.outputs.snapshot_table_name
+    MATERIALIZED_VIEWS_TABLE_NAME = dependency.dependencies.outputs.materialized_views_table_name
+    EVENT_TOPIC_ARN = dependency.dependencies.outputs.event_topic_arn
+    EVENT_BUS_NAME = dependency.dependencies.outputs.event_bus_name
+    DB_USERNAME = dependency.sql_db.outputs.rds_username
+    DB_PASSWORD = dependency.sql_db.outputs.rds_password
+    DB_HOST = dependency.sql_db.outputs.rds_address
+    DB_CERT = dependency.sql_db.outputs.rds_cert_pem
   }
 }
