@@ -15,3 +15,8 @@ variable "vpc" {
         public_subnet_ids = list(string)
   })
 }
+
+variable "environment_variables" {
+    description = "Environment variables to feed into the container environment"
+    type = map(string)
+}

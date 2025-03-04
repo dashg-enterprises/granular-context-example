@@ -3,7 +3,6 @@ include "root" {
 }
 
 locals {
-  application_image = ""
   repo_path = ""
   repo_name = ""
   environment_name = ""
@@ -17,8 +16,8 @@ dependency "cloudscape" {
   config_path = "../../cloudscape"
 }
 
-dependency "initialization" {
-  config_path = "../../../_initializations/${local.repo_name}"
+dependency "compute" {
+  config_path = "../compute/${local.repo_name}"
 }
 
 inputs = {
