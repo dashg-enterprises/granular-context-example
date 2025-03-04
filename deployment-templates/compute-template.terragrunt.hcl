@@ -22,7 +22,7 @@ dependency "sql-db" {
 }
 
 dependency "initialization" {
-  config_path = "../../../_initializations/${local.repo_name}"
+  config_path = "../../../../_initializations/${local.repo_name}"
 }
 
 inputs = {
