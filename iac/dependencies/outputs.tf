@@ -29,3 +29,11 @@ output "snapshot_table_name" {
 output "materialized_views_table_name" {
   value = module.granular_bounded_context_dependencies.materialized_views_table_name
 }
+
+output "ecs_security_group_id" {
+  value = module.granular_bounded_context_security.ecs_security_group_id
+}
+
+output "lb_security_group_id" {
+  value = module.granular_bounded_context_security.lb_security_group_id
+}

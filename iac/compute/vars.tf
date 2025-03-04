@@ -16,6 +16,11 @@ variable "vpc" {
   })
 }
 
+variable "security_group_id" {
+    description = "The SG id for this bounded context"
+    type = string
+}
+
 variable "environment_variables" {
     description = "Environment variables to feed into the container environment"
     type = map(string)

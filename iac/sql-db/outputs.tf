@@ -22,6 +22,10 @@ output "rds_cert_id" {
   value = module.granular_bounded_context_sql_db.rds_cert_id
 }
 
+output "rds_cert_pem" {
+  value = module.granular_bounded_context_sql_db.rds_cert_pem
+}
+
 output "rds_replica_connection_parameters" {
   value = module.granular_bounded_context_sql_db.rds_replica_connection_parameters
 }

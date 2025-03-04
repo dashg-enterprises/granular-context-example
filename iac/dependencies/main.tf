@@ -10,3 +10,9 @@ module "granular_bounded_context_dependencies" {
   bounded_context_name = local.bounded_context_name
   application_name = "${local.application_name}-${var.environment_name}"
 }
+
+module "granular_bounded_context_security" {
+  source = "git::https://github.com/dashg-enterprises/cloud-platform.git//modules/bounded-context-granules/aws/security?ref=main"
+  application_name = "${local.application_name}-${var.environment_name}"
+  vpc = var.vpc
+}
