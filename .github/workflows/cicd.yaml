@@ -86,7 +86,7 @@ jobs:
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
           TG_SOURCE: ${{ env.TG_APP_SOURCE }}
           TG_DIR: ${{ env.TG_DEV_APP_DIR }}
-          TG_COMMAND: ${{ inputs.command }}
+          TG_COMMAND: "run-all ${{ inputs.command }}"
   deploy-uat:
     if: ${{ inputs.uat }}
     needs: [build, deploy-dev]
@@ -111,7 +111,7 @@ jobs:
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
           TG_SOURCE: ${{ env.TG_APP_SOURCE }}
           TG_DIR: ${{ env.TG_UAT_APP_DIR }}
-          TG_COMMAND: ${{ inputs.command }}
+          TG_COMMAND: "run-all ${{ inputs.command }}"
   deploy-prod:
     if: ${{ inputs.prod }}
     needs: [build, deploy-dev, deploy-uat]
@@ -136,4 +136,4 @@ jobs:
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
           TG_SOURCE: ${{ env.TG_APP_SOURCE }}
           TG_DIR: ${{ env.TG_PROD_APP_DIR }}
-          TG_COMMAND: ${{ inputs.command }}
+          TG_COMMAND: "run-all ${{ inputs.command }}"
