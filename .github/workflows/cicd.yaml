@@ -73,7 +73,7 @@ jobs:
         if: ${{ inputs.command == 'apply' }}
         with: 
           CLOUD_DEPLOYMENT_PAT: ${{ secrets.CLOUD_DEPLOYMENT_PAT }}
-          TG_APP_DIR: ${{ env.TG_DEV_APP_DIR }}
+          TG_APP_DIR: ${{ env.TG_DEV_APP_DIR }}/compute
           APPLICATION_IMAGE: ${{ needs.build.outputs.application_image }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
       - uses: ./.github/workflows/actions/cd
@@ -98,7 +98,7 @@ jobs:
       - uses: ./.github/workflows/actions/commit-build-to-cloud-deployment
         with: 
           CLOUD_DEPLOYMENT_PAT: ${{ secrets.CLOUD_DEPLOYMENT_PAT }}
-          TG_APP_DIR: ${{ env.TG_UAT_APP_DIR }}
+          TG_APP_DIR: ${{ env.TG_UAT_APP_DIR }}/compute
           APPLICATION_IMAGE: ${{ needs.build.outputs.application_image }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
       - uses: ./.github/workflows/actions/cd
@@ -123,7 +123,7 @@ jobs:
       - uses: ./.github/workflows/actions/commit-build-to-cloud-deployment
         with: 
           CLOUD_DEPLOYMENT_PAT: ${{ secrets.CLOUD_DEPLOYMENT_PAT }}
-          TG_APP_DIR: ${{ env.TG_PROD_APP_DIR }}
+          TG_APP_DIR: ${{ env.TG_PROD_APP_DIR }}/compute
           APPLICATION_IMAGE: ${{ needs.build.outputs.application_image }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
       - uses: ./.github/workflows/actions/cd
