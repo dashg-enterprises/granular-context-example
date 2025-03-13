@@ -13,7 +13,7 @@ terraform {
 }
 
 dependency "cloudscape" {
-  config_path = "../../cloudscape"
+  config_path = "../../../cloudscape"
 }
 
 dependency "dependencies" {
