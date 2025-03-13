@@ -1,5 +1,5 @@
 locals {  # need to get this from same place as bounded-context
-  bounded_context_name = "ExampleContext"
+  bounded_context_name = "GranuleContext"
 }
 
 module "fargate_bounded_context_initialization" {
