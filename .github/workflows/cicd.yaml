@@ -36,7 +36,7 @@ env:
   TG_UAT_APP_DIR: 'live/aws/uat/applications/${{ github.event.repository.name }}'
   TG_PROD_APP_DIR: 'live/aws/prod/applications/${{ github.event.repository.name }}'
   TG_INIT_SOURCE: '../../../../..//iac/initialization'
-  TG_APP_SOURCE: '../../../../../..//iac'
+  TG_APP_SOURCE: '../../../../..//'
 
 jobs:
   build:
