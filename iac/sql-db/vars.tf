@@ -14,5 +14,5 @@ variable "vpc" {
 
 variable "application_security_group_id" {
     description = "The application using this db`"
-    type = list(string)
+    type = string
 }
