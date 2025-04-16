@@ -14,10 +14,6 @@ output "rds_username" {
   value = module.granular_bounded_context_sql_db.rds_username
 }
 
-output "rds_password" {
-  value = module.granular_bounded_context_sql_db.rds_password
-}
-
 output "rds_cert_id" {
   value = module.granular_bounded_context_sql_db.rds_cert_id
 }
