@@ -16,7 +16,7 @@ module "fargate_bounded_context" {
   application_image = local.application_image
   vpc = local.vpc
   security_group_id = local.security_group_id
-  load_balancer_target_id = module.fargate_bounded_context_lb.target_group_id
+  load_balancer_target_id = module.fargate_bounded_context_lb.lb_target_group_id
   environment_variables = local.environment_variables
 }
 
