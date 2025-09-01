@@ -16,6 +16,7 @@ output "rds_username" {
 
 output "rds_password" {
   value = module.granular_bounded_context_sql_db.rds_password
+  sensitive = true
 }
 
 output "rds_cert_id" {
