@@ -24,4 +24,5 @@ module "fargate_bounded_context_lb" {
   source = "git::https://github.com/dashg-enterprises/cloud-platform.git//modules/bounded-context-granules/aws/load_balancer?ref=main"
   application_name = "${local.application_name}-${var.environment_name}"
   vpc = local.vpc
+  security_group_id = local.security_group_id
 }
