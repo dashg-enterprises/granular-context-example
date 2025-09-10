@@ -38,6 +38,11 @@ inputs = {
     public_subnet_ids  = dependency.cloudscape.outputs.public_subnet_ids
   }
   security_group_id = dependency.dependencies.outputs.ecs_security_group_id
+  snapshot_table_arn = dependency.dependencies.outputs.snapshot_table_arn
+  event_log_table_arn = dependency.dependencies.outputs.event_log_table_arn
+  materialized_views_table_arn = dependency.dependencies.outputs.materialized_views_table_arn
+  event_bus_arn = dependency.dependencies.outputs.event_bus_arn
+  event_topic_arn = dependency.dependencies.outputs.event_topic_arn
   environment_variables = {
     COMMAND_QUEUE_ARN = dependency.dependencies.outputs.command_queue_arn
     DELAYED_COMMAND_QUEUE_ARN = dependency.dependencies.outputs.delayed_command_queue_arn

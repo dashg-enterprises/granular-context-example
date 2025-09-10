@@ -6,11 +6,6 @@ locals { // get these as imports to construct DDD API
   environment_variables = var.environment_variables
   vpc = var.vpc
   security_group_id = var.security_group_id
-  snapshot_table_arn = var.snapshot_table_arn
-  event_log_table_arn = var.event_log_table_arn
-  materialized_views_table_arn = var.materialized_views_table_arn
-  event_bus_arn = var.event_bus_arn
-  event_topic_arn = var.event_topic_arn
 }
 
 module "fargate_bounded_context" {
@@ -22,11 +17,6 @@ module "fargate_bounded_context" {
   vpc = local.vpc
   security_group_id = local.security_group_id
   load_balancer_target_id = module.fargate_bounded_context_lb.lb_target_group_id
-  snapshot_table_arn =local.snapshot_table_arn
-  event_log_table_arn = local.event_log_table_arn
-  materialized_views_table_arn = local.materialized_views_table_arn
-  event_bus_arn = local.event_bus_arn
-  event_topic_arn = local.event_topic_arn
   environment_variables = local.environment_variables
 }
 
@@ -35,4 +25,30 @@ module "fargate_bounded_context_lb" {
   application_name = "${local.application_name}-${var.environment_name}"
   vpc = local.vpc
   security_group_id = local.security_group_id
+}
+
+module "granular_bounded_context_sql_db" {
+  source = "git::https://github.com/dashg-enterprises/cloud-platform.git//modules/sql-database/aws?ref=main"
+  database_name = "${local.bounded_context_name}Db"
+  vpc = var.vpc
+  application_security_groups = [var.application_security_group_id]
+}
+
+locals { // get these as imports to construct DDD API
+  aggregate_root_name  = "Granule"
+  bounded_context_name = "GranuleContext"
+  application_name     = "GranuleService"
+}
+
+module "granular_bounded_context_dependencies" {
+  source = "git::https://github.com/dashg-enterprises/cloud-platform.git//modules/bounded-context-granules/aws/dependencies?ref=main"
+  aggregate_root_name = local.aggregate_root_name
+  bounded_context_name = local.bounded_context_name
+  application_name = "${local.application_name}-${var.environment_name}"
+}
+
+module "granular_bounded_context_security" {
+  source = "git::https://github.com/dashg-enterprises/cloud-platform.git//modules/bounded-context-granules/aws/security?ref=main"
+  application_name = "${local.application_name}-${var.environment_name}"
+  vpc = var.vpc
 }

@@ -21,7 +21,6 @@ dependency "dependencies" {
 }
 
 inputs = {
-  application_image = local.application_image
   environment_name  = local.environment_name
   application_security_group_id = dependency.dependencies.outputs.ecs_security_group_id
   vpc = {

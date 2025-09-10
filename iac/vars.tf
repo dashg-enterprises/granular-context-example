@@ -21,31 +21,6 @@ variable "security_group_id" {
     type = string
 }
 
-variable "snapshot_table_arn" {
-  description = "ARN of the table for aggregate snapshots"
-  type = string
-}
-
-variable "event_log_table_arn" {
-  description = "ARN of the table for the aggregate event log"
-  type = string
-}
-
-variable "materialized_views_table_arn" {
-  description = "ARN of the table for materializing views over the domain"
-  type = string
-}
-
-variable "event_bus_arn" {
-  description = "ARN of the event bus for broadcasting events (unused, prefer event_topic_arn)"
-  type = string
-}
-
-variable "event_topic_arn" {
-  description = "ARN of the table for publishing events"
-  type = string
-}
-
 variable "environment_variables" {
     description = "Environment variables to feed into the container environment"
     type = map(string)
