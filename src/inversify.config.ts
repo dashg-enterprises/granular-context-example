@@ -34,7 +34,7 @@ export async function startHost() {
         });
     
     const hostApi = new HostApi(host);
-    hostApi.start(80, (port) => console.log(`Example Context up and running on port ${port}!`));
+    hostApi.start(80, (port) => console.log(`Granular Context up and running on port ${port}!`));
 
 // container.bind<IAccountService>(TYPES.IAccountService).to(AccountService);
 // container.bind<IAccountRepo>(TYPES.IAccountRepo).to(AccountRepo);
