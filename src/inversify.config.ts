@@ -20,18 +20,18 @@ export async function startHost() {
 
     const host = new Host(container);
     await host
-        .withConfig();
-        // .withCrud(
-        //     ExampleController,
-        //     ExampleService, TYPES.IExampleService,
-        //     ExampleDao, TYPES.IExampleDao)
-        // .loadSql({
-        //     type: 'pgsql',
-        //     database: 'example_db',
-        //     entities: [ExampleData],
-        //     repositories: [TYPES.ExampleDataRepository],
-        //     synchronize: true,
-        // });
+        .withConfig()
+        .withCrud(
+            ExampleController,
+            ExampleService, TYPES.IExampleService,
+            ExampleDao, TYPES.IExampleDao)
+        .loadSql({
+            type: 'pgsql',
+            database: 'example_db',
+            entities: [ExampleData],
+            repositories: [TYPES.ExampleDataRepository],
+            synchronize: true,
+        });
     
     const hostApi = new HostApi(host);
     hostApi.start(80, (port) => console.log(`Example Context up and running on port ${port}!`));
