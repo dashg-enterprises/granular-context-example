@@ -16,8 +16,13 @@ variable "vpc" {
   })
 }
 
-variable "security_group_id" {
+variable "ecs_security_group_id" {
     description = "The SG id for this bounded context"
+    type = string
+}
+
+variable "lb_security_group_id" {
+    description = "The SG id for the load balancer"
     type = string
 }
 
