@@ -6,7 +6,7 @@ locals { // get these as imports to construct DDD API
   environment_variables = var.environment_variables
   vpc = var.vpc
   ecs_security_group_id = var.ecs_security_group_id
-  lb_security_group_id = var.ecs_security_group_id
+  lb_security_group_id = var.lb_security_group_id
   snapshot_table_arn = var.snapshot_table_arn
   event_log_table_arn = var.event_log_table_arn
   materialized_views_table_arn = var.materialized_views_table_arn
