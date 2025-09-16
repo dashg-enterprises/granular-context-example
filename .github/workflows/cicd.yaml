@@ -24,9 +24,21 @@ on:
         default: "apply"
         type: choice
         options:
+          - plan
           - apply
           - destroy
+          - "plan -destroy"
           - output
+      resource:
+        description: "The application resource to affect"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - compute
+          - "sql-db"
+          - dependencies
 
 env:
   AWS_REGION: us-east-1
@@ -37,6 +49,7 @@ env:
   TG_PROD_APP_DIR: 'live/aws/prod/applications/${{ github.event.repository.name }}'
   TG_INIT_SOURCE: '../../../../..//iac/initialization'
   TG_APP_SOURCE: '../../../../../../..//'
+  TG_RESOURCE_SOURCE: '../../../../../../../..//'
 
 jobs:
   build:
@@ -84,9 +97,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ env.AWS_REGION }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
-          TG_SOURCE: ${{ env.TG_APP_SOURCE }}
-          TG_DIR: ${{ env.TG_DEV_APP_DIR }}
-          TG_COMMAND: "run-all ${{ inputs.command }}"
+          TG_SOURCE: ${{ inputs.resource == 'all' && env.TG_APP_SOURCE || env.TG_RESOURCE_SOURCE }}
+          TG_DIR: ${{ inputs.resource == 'all' && env.TG_DEV_APP_DIR || format('{0}/{1}', env.TG_DEV_APP_DIR, inputs.resource) }}
+          TG_COMMAND: ${{ inputs.resource == 'all' && format('{0} {1}', 'run-all', inputs.command) || inputs.command }}
   deploy-uat:
     if: ${{ inputs.uat }}
     needs: [build, deploy-dev]
@@ -109,9 +122,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ env.AWS_REGION }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
-          TG_SOURCE: ${{ env.TG_APP_SOURCE }}
-          TG_DIR: ${{ env.TG_UAT_APP_DIR }}
-          TG_COMMAND: "run-all ${{ inputs.command }}"
+          TG_SOURCE: ${{ inputs.resource == 'all' && env.TG_APP_SOURCE || env.TG_RESOURCE_SOURCE }}
+          TG_DIR: ${{ inputs.resource == 'all' && env.TG_UAT_APP_DIR || format('{0}/{1}', env.TG_UAT_APP_DIR, inputs.resource) }}
+          TG_COMMAND: ${{ inputs.resource == 'all' && format('{0} {1}', 'run-all', inputs.command) || inputs.command }}
   deploy-prod:
     if: ${{ inputs.prod }}
     needs: [build, deploy-dev, deploy-uat]
@@ -134,6 +147,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ env.AWS_REGION }}
           GIT_ORGANIZATION_NAME: ${{ env.GIT_ORGANIZATION_NAME }}
-          TG_SOURCE: ${{ env.TG_APP_SOURCE }}
-          TG_DIR: ${{ env.TG_PROD_APP_DIR }}
-          TG_COMMAND: "run-all ${{ inputs.command }}"
+          TG_SOURCE: ${{ inputs.resource == 'all' && env.TG_APP_SOURCE || env.TG_RESOURCE_SOURCE }}
+          TG_DIR: ${{ inputs.resource == 'all' && env.TG_PROD_APP_DIR || format('{0}/{1}', env.TG_PROD_APP_DIR, inputs.resource) }}
+          TG_COMMAND: ${{ inputs.resource == 'all' && format('{0} {1}', 'run-all', inputs.command) || inputs.command }}
